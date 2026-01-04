@@ -1,19 +1,14 @@
+import cors from 'cors';
 import express from 'express';
-import { appDataSource } from './config/datasource';
+import routes from './controller/router';
 
-try {
-	(async () => {
-		const result = await appDataSource.initialize();
-	})();
-	console.log('Data Source has been initialized!');
-} catch (error) {
-	console.error('Error during Data Source initialization:', error);
-}
 const app = express();
 
 app.use(express.json());
-
+app.use(cors({ origin: 'http://localhost:5173' }));
 // Routes
+app.use('/api', routes);
+
 app.get('/health-check', (req, res) => {
 	res.send('server up');
 });
