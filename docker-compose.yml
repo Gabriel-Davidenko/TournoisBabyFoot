@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: babyfoot_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: babyfoot
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - pgdata:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+
+  back:
+    build: ./back
+    container_name: babyfoot_back
+    command: npm run dev
+    volumes:
+      - ./back:/app
+      - /app/
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+
+  front:
+    build: ./front
+    container_name: babyfoot_front
+    command: npm run dev
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    depends_on:
+      - back
+
+volumes:
+  pgdata:
