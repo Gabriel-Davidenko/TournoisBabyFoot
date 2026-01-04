@@ -5,9 +5,7 @@ const app = express();
 app.use(express.json());
 
 // Routes
-app.use('/');
+app.get('/health-check',(req ,res)=> { res.send('server up')});
 
-// Global error handler (should be after routes)
-app.use();
 
 export default app;
