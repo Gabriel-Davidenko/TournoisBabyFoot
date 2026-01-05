@@ -1,11 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { RouterLink } from 'vue-router';
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+	<h1>Babyfoots</h1>
+	<nav>
+		<ul>
+			<li><router-link to="/tournaments">Tournois</router-link></li>
+		</ul>
+	</nav>
+	<router-view class="row" />
 </template>
 
 <style scoped></style>
