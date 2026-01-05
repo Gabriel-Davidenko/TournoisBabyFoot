@@ -7,7 +7,9 @@
 
 		<ul v-else>
 			<li v-for="tournament in tournaments" :key="tournament.id">
-				{{ tournament.name }}
+				<router-link :to="`/tournaments/${tournament.id}`">
+					{{ tournament.name }}
+				</router-link>
 			</li>
 		</ul>
 	</div>

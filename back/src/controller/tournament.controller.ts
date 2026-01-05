@@ -42,7 +42,7 @@ tounamentRouter.get('/', async (req, res) => {
 // Route pour récupérer un seul tournois
 tounamentRouter.get('/:id', async (req, res) => {
 	const { id } = req.params;
-	const tournament = await appDataSource.getRepository(Tournament).find({
+	const tournament = await appDataSource.getRepository(Tournament).findOne({
 		where: { id: Equal(id) },
 	});
 	return res.send(tournament);
