@@ -28,3 +28,9 @@ squadController.post('/', async (req, res) => {
 
 	return ressourceCreated(res, squad);
 });
+
+squadController.get('/', async (req, res) => {
+	const squads = appDataSource.getRepository(Squad).find();
+
+	return res.send(squads);
+});
