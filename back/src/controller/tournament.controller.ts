@@ -1,10 +1,9 @@
 import { Router } from 'express';
-import { appDataSource } from '../datasource';
-import { StatusEnum, Tournament } from '../entity/tournament.entity';
-import { AddTournamentDto } from '../dto/tournament.dto';
 import { randomUUID } from 'node:crypto';
 import { Equal } from 'typeorm';
-import { safeParse, uuid } from 'zod';
+import { appDataSource } from '../datasource';
+import { AddTournamentDto } from '../dto/tournament.dto';
+import { StatusEnum, Tournament } from '../entity/tournament.entity';
 import { isValidUUID } from '../utils/validation';
 
 const tounamentRouter = Router();
@@ -51,9 +50,25 @@ tounamentRouter.get('/:id', async (req, res) => {
 	}
 
 	const tournament = await appDataSource.getRepository(Tournament).findOne({
-		where: { id: Equal(id) },
+		where: { id: Equal(idDto.data) },
 	});
 	return res.send(tournament);
+});
+
+//permet de récupérer les équipes lié à un tournoi
+tounamentRouter.get('/:id/squads', async (req, res) => {
+	const { id } = req.params;
+
+	const idDto = isValidUUID(id);
+	if (!idDto.success) {
+		return res.status(400).send(idDto.error);
+	}
+	const tournament = await appDataSource.getRepository(Tournament).findOne({
+		where: { id: Equal(idDto.data) },
+		relations: { squads: true },
+	});
+
+	return res.send(tournament?.squads ?? []);
 });
 
 export default tounamentRouter;

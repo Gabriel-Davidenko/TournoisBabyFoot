@@ -2,6 +2,8 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import config from './config/config';
 import { Tournament } from './entity/tournament.entity';
+import { Squad } from './entity/squad';
+import { User } from './entity/user.entity';
 
 export const appDataSource = new DataSource({
 	type: 'postgres',
@@ -10,7 +12,7 @@ export const appDataSource = new DataSource({
 	username: config.POSTGRES_USER,
 	password: config.POSTGRES_PASSWORD,
 	database: config.POSTGRES_DB,
-	entities: [Tournament],
+	entities: [Tournament, Squad, User],
 	synchronize: true,
 	logging: false,
 });
