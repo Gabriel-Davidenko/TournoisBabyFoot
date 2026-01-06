@@ -8,6 +8,6 @@ export function generateBadRequestError(
 	return res.status(400).send(safeParseResult.error);
 }
 
-export function ressourceCreated(res: Response, createdRessource: unknown) {
+export function ressourceCreatedResponse(res: Response, createdRessource: unknown) {
 	return res.status(201).send(createdRessource);
 }

@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import { AddSquadDto } from '../dto/squad.dto';
-import { generateBadRequestError, ressourceCreated } from '../utils/response';
+import { generateBadRequestError, ressourceCreatedResponse } from '../utils/response';
 import { appDataSource } from '../datasource';
 import { Squad } from '../entity/squad';
 import { User } from '../entity/user.entity';
 
-export const squadController = Router();
+export const squadRouter = Router();
 
-squadController.post('/', async (req, res) => {
+squadRouter.post('/', async (req, res) => {
 	const addSquadDto = AddSquadDto.safeParse(req.body);
 
 	if (!addSquadDto.success) {
@@ -26,10 +26,10 @@ squadController.post('/', async (req, res) => {
 		users,
 	});
 
-	return ressourceCreated(res, squad);
+	return ressourceCreatedResponse(res, squad);
 });
 
-squadController.get('/', async (req, res) => {
+squadRouter.get('/', async (req, res) => {
 	const squads = appDataSource.getRepository(Squad).find();
 
 	return res.send(squads);
