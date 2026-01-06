@@ -1,8 +1,8 @@
 import cors from 'cors';
 import express from 'express';
-import routes from './controller/router';
+import { routes } from './controller/router';
 
-const app = express();
+export const app = express();
 
 app.use(express.json());
 app.use(cors({ origin: 'http://localhost:5173' }));
@@ -12,5 +12,3 @@ app.use('/api', routes);
 app.get('/health-check', (req, res) => {
 	res.send('server up');
 });
-
-export default app;

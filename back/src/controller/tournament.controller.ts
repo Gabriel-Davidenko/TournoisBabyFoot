@@ -6,7 +6,7 @@ import { AddTournamentDto } from '../dto/tournament.dto';
 import { StatusEnum, Tournament } from '../entity/tournament.entity';
 import { isValidUUID } from '../utils/validation';
 
-const tounamentRouter = Router();
+export const tounamentRouter = Router();
 
 // Route pour ajouter un tournoi
 tounamentRouter.post('/', async (req, res) => {
@@ -70,5 +70,3 @@ tounamentRouter.get('/:id/squads', async (req, res) => {
 
 	return res.send(tournament?.squads ?? []);
 });
-
-export default tounamentRouter;
