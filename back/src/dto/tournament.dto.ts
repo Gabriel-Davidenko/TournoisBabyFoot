@@ -1,5 +1,5 @@
 import { iso, object, string } from 'zod';
-export const TournamentDto = object({
+export const AddTournamentDto = object({
 	name: string(),
 	description: string(),
 	date: iso.datetime(),

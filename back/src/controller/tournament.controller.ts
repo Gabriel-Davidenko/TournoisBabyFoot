@@ -1,15 +1,17 @@
 import { Router } from 'express';
 import { appDataSource } from '../datasource';
 import { StatusEnum, Tournament } from '../entity/tournament.entity';
-import { TournamentDto } from '../dto/tournament.dto';
+import { AddTournamentDto } from '../dto/tournament.dto';
 import { randomUUID } from 'node:crypto';
 import { Equal } from 'typeorm';
+import { safeParse, uuid } from 'zod';
+import { isValidUUID } from '../utils/validation';
 
 const tounamentRouter = Router();
 
 // Route pour ajouter un tournoi
 tounamentRouter.post('/', async (req, res) => {
-	const tournamentDto = TournamentDto.safeParse(req.body);
+	const tournamentDto = AddTournamentDto.safeParse(req.body);
 
 	if (!tournamentDto.success) {
 		return res.status(400).send(tournamentDto.error);
@@ -42,6 +44,12 @@ tounamentRouter.get('/', async (req, res) => {
 // Route pour récupérer un seul tournois
 tounamentRouter.get('/:id', async (req, res) => {
 	const { id } = req.params;
+
+	const idDto = isValidUUID(id);
+	if (!idDto.success) {
+		return res.status(400).send(idDto.error);
+	}
+
 	const tournament = await appDataSource.getRepository(Tournament).findOne({
 		where: { id: Equal(id) },
 	});
