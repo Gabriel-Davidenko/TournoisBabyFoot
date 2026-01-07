@@ -7,7 +7,7 @@ import {
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
-import { Squad } from './squad';
+import { Team } from './team';
 
 export enum StatusEnum {
 	PENDING = 'pending',
@@ -40,6 +40,6 @@ export class Tournament {
 	@UpdateDateColumn()
 	updatedAt?: Date;
 
-	@OneToMany(() => Squad, (squad) => squad.tournaments)
-	squads!: Squad[];
+	@OneToMany(() => Team, (team) => team.tournaments)
+	team!: Team[];
 }

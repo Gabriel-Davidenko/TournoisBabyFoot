@@ -10,7 +10,7 @@ import { User } from './user.entity';
  */
 
 @Entity()
-export class Squad {
+export class Team {
 	@PrimaryGeneratedColumn('uuid')
 	id!: string;
 
@@ -20,6 +20,6 @@ export class Squad {
 	@ManyToOne(() => User, (user) => user.id)
 	users!: User[];
 
-	@ManyToOne(() => Tournament, (tournament) => tournament.squads)
+	@ManyToOne(() => Tournament, (tournament) => tournament.team)
 	tournaments!: Tournament[];
 }

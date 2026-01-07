@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Squad } from './squad';
+import { Team } from './team';
 
 /**
  * Les administrateurs et les joueurs sont des utilisateur
@@ -23,6 +23,6 @@ export class User {
 	@Column({ type: 'varchar' })
 	salt!: string;
 
-	@OneToMany(() => Squad, (squad) => squad.users)
-	squads!: Squad[];
+	@OneToMany(() => Team, (team) => team.users)
+	teams!: Team[];
 }

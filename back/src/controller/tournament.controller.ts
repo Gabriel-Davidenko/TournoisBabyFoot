@@ -65,8 +65,8 @@ tounamentRouter.get('/:id/squads', async (req, res) => {
 	}
 	const tournament = await appDataSource.getRepository(Tournament).findOne({
 		where: { id: Equal(idDto.data) },
-		relations: { squads: true },
+		relations: { team: true },
 	});
 
-	return res.send(tournament?.squads ?? []);
+	return res.send(tournament?.team ?? []);
 });
