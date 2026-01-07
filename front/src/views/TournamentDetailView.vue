@@ -4,17 +4,17 @@
 		<p v-else-if="error" style="color: red">{{ error }}</p>
 
 		<div v-else>
-			<h3>Nom : {{ tournament?.name }}</h3>
+			<h2>Nom : {{ tournament?.name }}</h2>
 			<p>{{ tournament?.description }}</p>
 			<p>Date : {{ tournament?.date?.toLocaleString() }}</p>
 		</div>
 
 		<div>
-			<h4>Equipes :</h4>
+			<h3>Equipes :</h3>
 			<div v-if="teams.length">
 				<li v-for="team in teams" :key="team.id">
 					<ul>
-						<routerLink :to="`/team/${team.id}`">{{ team.name }}</routerLink>
+						<routerLink :to="`/teams/${team.id}`">{{ team.name }}</routerLink>
 					</ul>
 				</li>
 			</div>
@@ -29,11 +29,11 @@ import type { Team } from '@/type/team';
 import type { Tournament } from '@/type/tournament';
 import { onMounted, ref } from 'vue';
 
-interface Props {
+interface TournamentProps {
 	id: string;
 }
 
-const props = defineProps<Props>();
+const props = defineProps<TournamentProps>();
 
 const error = ref<null | string>(null);
 const loading = ref(true);

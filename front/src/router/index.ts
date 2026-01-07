@@ -1,4 +1,5 @@
 import AddTournamentView from '@/views/AddTournamentView.vue';
+import TeamDetailView from '@/views/TeamDetailView.vue';
 import TournamentDetailView from '@/views/TournamentDetailView.vue';
 import TournamentsView from '@/views/TournamentsView.vue';
 import { createRouter, createWebHistory } from 'vue-router';
@@ -20,6 +21,12 @@ const router = createRouter({
 			name: 'TournamentDetail',
 			path: '/tournaments/:id',
 			component: TournamentDetailView,
+			props: true,
+		},
+		{
+			name: 'TeamDetail',
+			path: '/teams/:id',
+			component: TeamDetailView,
 			props: true,
 		},
 	],

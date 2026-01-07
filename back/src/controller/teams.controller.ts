@@ -4,6 +4,8 @@ import { generateBadRequestError, ressourceCreatedResponse } from '../utils/resp
 import { appDataSource } from '../datasource';
 import { Team } from '../entity/team';
 import { User } from '../entity/user.entity';
+import { Equal } from 'typeorm';
+import { isValidUUID } from '../utils/validation';
 
 export const teamRouter = Router();
 
@@ -33,4 +35,18 @@ teamRouter.get('/', async (req, res) => {
 	const teams = appDataSource.getRepository(Team).find();
 
 	return res.send(teams);
+});
+teamRouter.get('/:id', async (req, res) => {
+	const { id } = req.params;
+
+	const idDto = isValidUUID(id);
+	if (!idDto.success) {
+		return res.status(400).send(idDto.error);
+	}
+
+	const team = await appDataSource
+		.getRepository(Team)
+		.findOne({ where: { id: Equal(idDto.data) } });
+
+	return res.send(team);
 });
