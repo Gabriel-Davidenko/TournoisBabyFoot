@@ -1,34 +1,31 @@
 <template>
 	<div>
-		<p v-if="loading">Chargement</p>
-		<p v-else-if="error" style="color: red">{{ error }}</p>
+		<h2>Equipes</h2>
+		<p v-if="loading">Chargement...</p>
+		<p v-else-if="error">{{ error }}</p>
 
-		<div v-else>
-			<h2>Equipe: {{ team?.name }}</h2>
-			<!-- Ajouter les matchs et les championats inscrits plus tard -->
-		</div>
+		<ul v-else>
+			<li v-for="team in teams" :key="team.id">
+				<routerLink :to="`/teams/${team.id}`">{{ team.name }}</routerLink>
+			</li>
+		</ul>
 	</div>
 </template>
 
 <script setup lang="ts">
 import { apiUrl, endpointsRoute } from '@/const';
 import type { Team } from '@/type/team';
-import { onMounted, ref } from 'vue';
-interface TeamProps {
-	id: string;
-}
-
-const props = defineProps<TeamProps>();
+import { ref, onMounted } from 'vue';
 const error = ref<string | null>(null);
 const loading = ref<boolean>(true);
 
-const team = ref<Team | null>(null);
+const teams = ref<Team[]>([]);
 
-async function fetchData(parameters: TeamProps) {
+async function fetchData() {
 	loading.value = true;
 	error.value = null;
 
-	const tournamentUri = endpointsRoute.TEAMS + '/' + parameters.id;
+	const tournamentUri = endpointsRoute.TEAMS;
 	const tournamentUrl = new URL(tournamentUri, apiUrl);
 	try {
 		const response = await fetch(tournamentUrl);
@@ -36,7 +33,7 @@ async function fetchData(parameters: TeamProps) {
 		if (!response.ok) {
 			throw new Error("Erreur lors de la récupération de l'équipe");
 		}
-		team.value = await response.json();
+		teams.value = await response.json();
 	} catch (err) {
 		if (err instanceof Error) {
 			error.value = err.message;
@@ -45,8 +42,7 @@ async function fetchData(parameters: TeamProps) {
 		loading.value = false;
 	}
 }
-
 onMounted(() => {
-	fetchData(props);
+	fetchData();
 });
 </script>

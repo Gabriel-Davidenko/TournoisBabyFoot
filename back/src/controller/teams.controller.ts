@@ -32,7 +32,7 @@ teamRouter.post('/', async (req, res) => {
 });
 
 teamRouter.get('/', async (req, res) => {
-	const teams = appDataSource.getRepository(Team).find();
+	const teams = await appDataSource.getRepository(Team).find();
 
 	return res.send(teams);
 });
