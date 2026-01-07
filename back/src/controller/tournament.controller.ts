@@ -56,7 +56,7 @@ tounamentRouter.get('/:id', async (req, res) => {
 });
 
 //permet de récupérer les équipes lié à un tournoi
-tounamentRouter.get('/:id/squads', async (req, res) => {
+tounamentRouter.get('/:id/teams', async (req, res) => {
 	const { id } = req.params;
 
 	const idDto = isValidUUID(id);
