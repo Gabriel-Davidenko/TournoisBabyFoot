@@ -11,6 +11,7 @@
 
 		<div>
 			<h3>Equipes :</h3>
+			<AddTeamView />
 			<div v-if="teams.length">
 				<li v-for="team in teams" :key="team.id">
 					<ul>
@@ -24,6 +25,7 @@
 </template>
 
 <script setup lang="ts">
+import AddTeamView from './AddTeam.View.vue';
 import { apiUrl, endpointsRoute } from '@/const';
 import type { Team } from '@/type/team';
 import type { Tournament } from '@/type/tournament';
