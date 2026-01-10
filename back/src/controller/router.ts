@@ -1,8 +1,10 @@
 import { Router } from 'express';
-import tounamentRouter from './tournament.controller';
+import { tounamentRouter } from './tournament.controller';
+import { teamRouter } from './teams.controller';
+import { authRouter } from './auth.controller';
 
-const routes = Router();
+export const routes = Router();
 
 routes.use('/tournaments', tounamentRouter);
-
-export default routes;
+routes.use('/teams', teamRouter);
+routes.use('/auth', authRouter);

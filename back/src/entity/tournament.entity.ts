@@ -2,9 +2,12 @@ import {
 	Column,
 	CreateDateColumn,
 	Entity,
+	ManyToOne,
+	OneToMany,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
+import { Team } from './team';
 
 export enum StatusEnum {
 	PENDING = 'pending',
@@ -36,4 +39,7 @@ export class Tournament {
 
 	@UpdateDateColumn()
 	updatedAt?: Date;
+
+	@OneToMany(() => Team, (team) => team.tournaments)
+	team!: Team[];
 }
